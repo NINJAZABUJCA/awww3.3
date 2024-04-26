@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strona Główna</title>
+</head>
+<body>
+    <p><a href="/przegladarkaobrazkow/">Powrót do menu głównego</a></p>
+    <h1>Wybierz obrazek do edycji</h1>
+    <h2>Lista obrazków:</h2>
+    <ul>
+        {% for obrazek in listaobrazkow %}
+            <li><a href="/przegladarkaobrazkow/edit/{{ obrazek.id }}/">{{ obrazek.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

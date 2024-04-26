@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edytuj Obrazek</title>
+</head>
+<body>
+    <p><a href="/przegladarkaobrazkow/">Powrót do menu głównego</a></p>
+    <h1>Edytuj Obrazek</h1>
+    <h2>Obecny obrazek:</h2>
+        <svg width="{{ obrazek.width }}" height="{{ obrazek.height }}" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            {{ svg_content | safe }}
+         </svg>
+    <form method="post">
+        {% csrf_token %}
+        <h2>Usuń wszystkie kształty:</h2>
+        <input type="submit" name="usun" value="Usuń">
+    </form>
+    <form method="post">
+        {% csrf_token %}
+        <h2>Dodaj nowy prostokąt:</h2>
+        <label for="x">X:</label>
+        <input type="text" id="x" name="x">
+        <br>
+        <label for="y">Y:</label>
+        <input type="text" id="y" name="y">
+        <br>
+        <label for="width">Szerokość:</label>
+        <input type="text" id="width" name="width">
+        <br>
+        <label for="height">Wysokość:</label>
+        <input type="text" id="height" name="height">
+        <br>
+        <label for="color">Kolor:</label>
+        <input type="text" id="color" name="color">
+        <br>
+        <input type="submit" name="dodaj" value="Dodaj">
+    </form>
+</body>
+</html>

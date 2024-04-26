@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista obrazków</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light">
+<div class="container-fluid">
+
+        <div class="row justify-content-center">
+            <form method="GET" action="{% url 'index' %}">
+                <div class="form-group">
+                    <label for="tag">Tag:</label>
+                    <input type="text" class="form-control" id="tag" name="tag">
+                </div>
+                <div class="form-check">
+                    <label>Sortuj po:</label>
+                    <input type="radio" id="newest" name="order_by" value="newest"/>
+                    <label for="newest">Najnowsze</label>
+                    <input type="radio" id="oldest" name="order_by" value="oldest"/>
+                    <label for="oldest">Najstarsze</label>
+                    <button type="submit">Filtruj i sortuj</button>
+                </div>
+            </form>
+        </div>
+
+    <div class="row mt-4 justify-content-center">
+    {% for image in images %}
+        <div class="col-md-3 mb-3">
+            <div class="card" style="width: 100px; height: 100px; justify-content: center; align-items: center;">
+                <a href="/stronaglownaobrazoowa/{{ image.id }}/"><img src="/images/{{ image.image }}" class="card-img-top" alt="Miniaturka obrazka"></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <nav aria-label="Paginacja">
+                <ul class="pagination justify-content-center">
+                    {% if images.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1{% if tag %}&tag={{ tag }}{% endif %}&order_by={{ order_by }}">Pierwsza</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ images.previous_page_number }}{% if tag %}&tag={{ tag }}{% endif %}&order_by={{ order_by }}">Poprzednia</a></li>
+                    {% endif %}
+                    <li class="page-item disabled"><a class="page-link" href="#">Strona {{ images.number }} z {{ images.paginator.num_pages }}</a></li>
+                    {% if images.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ images.next_page_number }}{% if tag %}&tag={{ tag }}{% endif %}&order_by={{ order_by }}">Następna</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ images.paginator.num_pages }}{% if tag %}&tag={{ tag }}{% endif %}&order_by={{ order_by }}">Ostatnia</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>
